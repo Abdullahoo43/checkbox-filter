@@ -1,0 +1,11 @@
+.checkbox {
+    display: flex;
+    gap:15px;
+}
+
+.sub-checkbox{
+    padding:5px 15px;
+    display: flex;
+    flex-direction: column;
+    
+}
