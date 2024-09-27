@@ -1,25 +1,26 @@
-import "./filter-block.css";
-
-// import { ProjectType, State, Svg } from "../../types";
-import BaseDropdown from "../base-dropdown/base-dropdown";
-import { useState, useEffect, useRef } from "react";
-
+import { useEffect, useRef, useState } from "react";
 import FilterBlockHead from "../filter-block-head/filter-block-head";
+import StageDropdown from "../stage-dropdown/stage-dropdown";
 
-const FilterBlock = (props: {
+const FilterBlockStage = (props: {
   value: string;
   selectedOptionsToDisplay?: string;
-
-  labels: string[];
-  handleSelectedOptions?: (isCheck: boolean, label: string) => void;
-  selectedOptions?: string[];
+  activeLabels: string[];
+  inActiveLabels: string[];
+  handleSelectedActiveStages?: (isCheck: boolean, label: string) => void;
+  selectedActiveStages?: string[];
+  handleSelectedInActiveStages: (isCheck: boolean, label: string) => void;
+  selectedInActiveStages: string[];
 }) => {
   const {
     value,
     selectedOptionsToDisplay,
-    labels,
-    handleSelectedOptions,
-    selectedOptions,
+    activeLabels,
+    inActiveLabels,
+    handleSelectedActiveStages,
+    selectedActiveStages,
+    handleSelectedInActiveStages,
+    selectedInActiveStages,
   } = props;
 
   const [isDropdownOpen, setIsDropDownOpen] = useState(false);
@@ -54,10 +55,13 @@ const FilterBlock = (props: {
         onClickHandler={onClickHandler}
       />
       {isDropdownOpen ? (
-        <BaseDropdown
-          labels={labels}
-          handleSelectedOptions={handleSelectedOptions}
-          selectedOptions={selectedOptions}
+        <StageDropdown
+          activeLabels={activeLabels}
+          inActiveLabels={inActiveLabels}
+          handleSelectedActiveStages={handleSelectedActiveStages}
+          selectedActiveStages={selectedActiveStages}
+          handleSelectedInActiveStages={handleSelectedInActiveStages}
+          selectedInActiveStages={selectedInActiveStages}
         />
       ) : (
         <></>
@@ -66,4 +70,4 @@ const FilterBlock = (props: {
   );
 };
 
-export default FilterBlock;
+export default FilterBlockStage;

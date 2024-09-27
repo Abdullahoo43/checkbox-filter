@@ -7,24 +7,30 @@
     border-spacing: 0px 7px;
   }
   
+
+
   .table-header th {
     width: 145px;
+    border-bottom: 1px solid rgba(204, 212, 215, 1)
   }
   .table-header th:first-child{
     width: 265px;
+    padding-left: 15px;
   }
   
-  .table-header-row {
-    padding: 6px 15px;
+  .table-header th:last-child{
+    
+    padding-right: 27px;
   }
+
   
   .header-block {
     color:rgba(52, 79, 95, 1);
-    padding: 5px 0px;
+    padding: 11px 0px;
     padding-right: 12px;
     display:flex;
     justify-content: space-between;
     align-items: center;
     font-family: 'GothamBold';
-    
+    font-size: 15px;
   }

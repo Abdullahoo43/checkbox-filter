@@ -1,9 +1,15 @@
-.table-body-row {
-    padding: 9px 16px;
-}
 
 .body-block {
     color:rgba(0, 42, 58, 1);
     font-family: 'GothamBook';
+    font-size: 15px;
+    padding: 9px 0;
 }
 
+.body-block:first-child{
+    padding-left: 15px;
+}
+
+.body-block:last-child{
+    padding-right: 27px;
+}

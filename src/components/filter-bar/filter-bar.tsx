@@ -1,33 +1,93 @@
-import { Svg } from "../../types";
+// import { ProjectType, State, Svg } from "../../types";
 
+import FilterBlockStage from "../filter-block-stage/filter-block-stage";
 import FilterBlock from "../filter-block/filter-block";
+import RangeSlider from "../range-slider/range-slider";
 
 import "./filter-bar.css";
 
 export const FilterBar = (props: {
-  labels: { stage: string[]; state: string[]; projectType: string[] };
+  labels: {
+    active: string[];
+    inActive: string[];
+    state: string[];
+    projectType: string[];
+  };
+  selectedStates: string[];
+  handleSelectedStates: (isCheck: boolean, label: string) => void;
+  selectedProjectTypes: string[];
+  handleSelectedProjectTypes: (isCheck: boolean, label: string) => void;
+  selectedActiveStages: string[];
+  handleSelectedActiveStages: (isCheck: boolean, label: string) => void;
+  selectedInActiveStages: string[];
+  handleSelectedInActiveStages: (isCheck: boolean, label: string) => void;
 }) => {
-  const { labels } = props;
+  const {
+    labels,
+    selectedStates,
+    handleSelectedStates,
+    selectedProjectTypes,
+    handleSelectedProjectTypes,
+    selectedActiveStages,
+    handleSelectedActiveStages,
+    selectedInActiveStages,
+    handleSelectedInActiveStages,
+  } = props;
+
+  console.log(
+    "checking the bug",
+    selectedStates.length,
+    labels.state.length - 1
+  );
+
+  const stageToDisplay = (): string[] => {
+    let stage: string[] = [];
+    if (selectedActiveStages.length === labels.active.length)
+      stage.push("Active");
+    else stage.push(...selectedActiveStages);
+    if (selectedInActiveStages.length === labels.inActive.length)
+      stage.push("Inactive");
+
+    return stage;
+  };
 
   return (
     <div className="filter-bar">
-      <FilterBlock value={"All Filters"} svg={Svg.ALL_FILTERS} />
-      <FilterBlock
-        value={"Stage: Active"}
-        svg={Svg.DROPDOWN}
-        labels={labels.stage}
+      <FilterBlockStage
+        value={"Stage: "}
+        selectedOptionsToDisplay={stageToDisplay()[0]}
+        activeLabels={labels.active}
+        inActiveLabels={labels.inActive}
+        handleSelectedActiveStages={handleSelectedActiveStages}
+        selectedActiveStages={selectedActiveStages}
+        handleSelectedInActiveStages={handleSelectedInActiveStages}
+        selectedInActiveStages={selectedInActiveStages}
       />
       <FilterBlock
-        value={"State: All"}
-        svg={Svg.DROPDOWN}
+        value={"State: "}
+        selectedOptionsToDisplay={
+          selectedStates.length === labels.state.length
+            ? "All"
+            : selectedStates[0]
+        }
         labels={labels.state}
+        handleSelectedOptions={handleSelectedStates}
+        selectedOptions={selectedStates}
       />
       <FilterBlock
-        value={"Project Type: All"}
-        svg={Svg.DROPDOWN}
+        value={"Project Type: "}
+        selectedOptionsToDisplay={
+          selectedProjectTypes.length === labels.projectType.length
+            ? "All"
+            : selectedProjectTypes.length
+            ? selectedProjectTypes[0]
+            : ""
+        }
         labels={labels.projectType}
+        handleSelectedOptions={handleSelectedProjectTypes}
+        selectedOptions={selectedProjectTypes}
       />
-      <FilterBlock value={"Total kW DC: <5,000"} svg={Svg.DROPDOWN} />
+      {/* <RangeSlider /> */}
     </div>
   );
 };

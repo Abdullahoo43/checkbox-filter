@@ -2,183 +2,257 @@ import "./App.css";
 
 import {
   Project,
-  Stage,
-  State,
-  ProjectType,
-  SolutionType,
-  OfftakeType,
+  // Stage,
+  // State,
+  // ProjectType,
+  // SolutionType,
+  // OfftakeType,
 } from "./types";
 
 import FilterBar from "./components/filter-bar/filter-bar";
 import Table from "./components/table/table";
+import { useState } from "react";
 
 const projects: Project[] = [
   {
     projectName: "NOLA 1",
-    stage: Stage.IN_CONSTRUCTION,
-    state: State.DELAWERE,
+    stage: "In Construction",
+    state: "Delaware",
     totalKwDC: 562,
-    projectType: ProjectType.BESS,
-    solutionType: SolutionType.BESS,
-    offtakeType: OfftakeType.VPPA,
+    projectType: "BESS",
+    solutionType: "BESS",
+    offtakeType: "VPPA",
   },
   {
     projectName: "LL Cranberry (Mid Atlantic)",
-    stage: Stage.IN_CONSTRUCTION,
-    state: State.ILLINOIS,
+    stage: "In Construction",
+    state: "Illinois",
     totalKwDC: 345,
-    projectType: ProjectType.CARPORT,
-    solutionType: SolutionType.BESS,
-    offtakeType: OfftakeType.VPPA,
+    projectType: "Carport",
+    solutionType: "BESS",
+    offtakeType: "VPPA",
   },
   {
     projectName: "LL Valleyview OH",
-    stage: Stage.IN_DEVELOPMENT,
-    state: State.LOUSIANA,
+    stage: "In Development",
+    state: "Louisiana",
     totalKwDC: 789,
-    projectType: ProjectType.ROOF,
-    solutionType: SolutionType.BESS,
-    offtakeType: OfftakeType.PPA,
+    projectType: "Roof",
+    solutionType: "BESS",
+    offtakeType: "PPA",
   },
   {
     projectName: "Preferred Freezer (NJ)",
-    stage: Stage.OPERATING,
-    state: State.MARYLAND,
+    stage: "Operating",
+    state: "Maryland",
     totalKwDC: 423,
-    projectType: ProjectType.FLOATING,
-    solutionType: SolutionType.BESS,
-    offtakeType: OfftakeType.VPPA,
+    projectType: "Floating",
+    solutionType: "BESS",
+    offtakeType: "VPPA",
   },
   {
     projectName: "ON Sites",
-    stage: Stage.IN_DEVELOPMENT,
-    state: State.OHIO,
+    stage: "In Development",
+    state: "Ohio",
     totalKwDC: 678,
-    projectType: ProjectType.GROUND,
-    solutionType: SolutionType.SOLAR,
-    offtakeType: OfftakeType.OP_LEASE,
+    projectType: "Ground",
+    solutionType: "Solar",
+    offtakeType: "Operating Lease",
   },
   {
     projectName: "PF-Chicago 1",
-    stage: Stage.OPERATING,
-    state: State.MICHIGAN,
+    stage: "Operating",
+    state: "Michigan",
     totalKwDC: 234,
-    projectType: ProjectType.ROOF,
-    solutionType: SolutionType.SOLAR,
-    offtakeType: OfftakeType.OP_LEASE,
+    projectType: "Roof",
+    solutionType: "Solar",
+    offtakeType: "Operating Lease",
   },
   {
     projectName: "Fairview Farms",
-    stage: Stage.PRE_CONTRACT,
-    state: State.PENNSYLVANIA,
+    stage: "Pre-Contract",
+    state: "Pennsylvania",
     totalKwDC: 890,
-    projectType: ProjectType.BESS,
-    solutionType: SolutionType.SOLAR,
-    offtakeType: OfftakeType.OP_LEASE,
+    projectType: "BESS",
+    solutionType: "Solar",
+    offtakeType: "Operating Lease",
   },
   {
     projectName: "LL Scranton PA",
-    stage: Stage.IN_CONSTRUCTION,
-    state: State.ONTARIO,
+    stage: "In Construction",
+    state: "Ontario",
     totalKwDC: 567,
-    projectType: ProjectType.GROUND,
-    solutionType: SolutionType.BESS,
-    offtakeType: OfftakeType.PPA,
+    projectType: "Ground",
+    solutionType: "BESS",
+    offtakeType: "PPA",
   },
   {
     projectName: "Geneva Lineage (IL)",
-    stage: Stage.OPERATING,
-    state: State.NEW_JERSEY,
+    stage: "Operating",
+    state: "New Jersey",
     totalKwDC: 345,
-    projectType: ProjectType.BESS,
-    solutionType: SolutionType.SOLAR,
-    offtakeType: OfftakeType.PPA,
+    projectType: "BESS",
+    solutionType: "Solar",
+    offtakeType: "PPA",
   },
   {
     projectName: "LL New Castle (Mid Atlantic)",
-    stage: Stage.IN_DEVELOPMENT,
-    state: State.ONTARIO,
+    stage: "In Development",
+    state: "Ontario",
     totalKwDC: 890,
-    projectType: ProjectType.CARPORT,
-    solutionType: SolutionType.BESS,
-    offtakeType: OfftakeType.PPA,
+    projectType: "Carport",
+    solutionType: "BESS",
+    offtakeType: "PPA",
   },
   {
     projectName: "PF-Chicago 2",
-    stage: Stage.PRE_CONTRACT,
-    state: State.MICHIGAN,
+    stage: "Pre-Contract",
+    state: "Michigan",
     totalKwDC: 456,
-    projectType: ProjectType.ROOF,
-    solutionType: SolutionType.SOLAR,
-    offtakeType: OfftakeType.VPPA,
+    projectType: "Roof",
+    solutionType: "Solar",
+    offtakeType: "VPPA",
   },
   {
     projectName: "LL Orefield PA",
-    stage: Stage.IN_DEVELOPMENT,
-    state: State.LOUSIANA,
+    stage: "In Development",
+    state: "Louisiana",
     totalKwDC: 123,
-    projectType: ProjectType.CARPORT,
-    solutionType: SolutionType.BESS,
-    offtakeType: OfftakeType.VPPA,
+    projectType: "Carport",
+    solutionType: "BESS",
+    offtakeType: "VPPA",
   },
   {
     projectName: "LL Allentown 1 PA (Ruppsville)",
-    stage: Stage.IN_CONSTRUCTION,
-    state: State.DELAWERE,
+    stage: "In Construction",
+    state: "Delaware",
     totalKwDC: 678,
-    projectType: ProjectType.GROUND,
-    solutionType: SolutionType.BESS,
-    offtakeType: OfftakeType.PPA,
+    projectType: "Ground",
+    solutionType: "BESS",
+    offtakeType: "PPA",
   },
   {
     projectName: "LL Novi HQ MI",
-    stage: Stage.PRE_CONTRACT,
-    state: State.MICHIGAN,
+    stage: "Pre-Contract",
+    state: "Michigan",
     totalKwDC: 234,
-    projectType: ProjectType.FLOATING,
-    solutionType: SolutionType.BESS,
-    offtakeType: OfftakeType.OP_LEASE,
+    projectType: "Floating",
+    solutionType: "BESS",
+    offtakeType: "Operating Lease",
   },
   {
     projectName: "LL Chicago Portfolio",
-    stage: Stage.IN_DEVELOPMENT,
-    state: State.OHIO,
+    stage: "In Development",
+    state: "Ohio",
     totalKwDC: 789,
-    projectType: ProjectType.BESS,
-    solutionType: SolutionType.BESS,
-    offtakeType: OfftakeType.VPPA,
+    projectType: "BESS",
+    solutionType: "BESS",
+    offtakeType: "VPPA",
   },
 ];
 
 function App() {
   const labels = {
-    stage: ["Active", "Inactive"],
+    active: [
+      // "Active",
+      "Pre-Contract",
+      "In Development",
+      "In Construction",
+      "Operating",
+    ],
+    inActive: ["Cancelled"],
     state: [
-      "All",
-      State.DELAWERE,
-      State.ILLINOIS,
-      State.LOUSIANA,
-      State.MARYLAND,
-      State.MICHIGAN,
-      State.NEW_JERSEY,
-      State.OHIO,
-      State.ONTARIO,
-      State.PENNSYLVANIA,
+      "Delawere",
+      "Illinois",
+      "Louisiana",
+      "Maryland",
+      "Michigan",
+      "New Jersey",
+      "Ohio",
+      "Ontario",
+      "Pennsylvania",
     ],
-    projectType: [
-      "All",
-      ProjectType.BESS,
-      ProjectType.CARPORT,
-      ProjectType.FLOATING,
-      ProjectType.GROUND,
-      ProjectType.ROOF,
-    ],
+    projectType: ["BESS", "Carport", "Floating", "Ground", "Roof"],
+  };
+
+  const [selectedStates, setSelectedStates] = useState<string[]>(labels.state);
+  const [selectedProjectTypes, setSelectedProjectTypes] = useState<string[]>(
+    labels.projectType
+  );
+  const [selectedActiveStages, setSelectedActiveStages] = useState<string[]>(
+    labels.active
+  );
+  const [selectedInActiveStages, setSelectedInActiveStages] = useState<
+    string[]
+  >(labels.inActive);
+
+  const handleSelectedStates = (isCheck: boolean, label: string) => {
+    if (label === "All" && isCheck) setSelectedStates([...labels.state]);
+    else if (label === "All" && !isCheck) setSelectedStates([]);
+    else if (isCheck && label !== "All")
+      setSelectedStates((prev) => [...prev, label]);
+    else setSelectedStates((prev) => prev.filter((state) => state !== label));
+  };
+
+  const handleSelectedProjectTypes = (isCheck: boolean, label: string) => {
+    if (label === "All" && isCheck)
+      setSelectedProjectTypes([...labels.projectType]);
+    else if (label === "All" && !isCheck) setSelectedProjectTypes([]);
+    else if (isCheck && label !== "All")
+      setSelectedProjectTypes((prev) => [...prev, label]);
+    else
+      setSelectedProjectTypes((prev) =>
+        prev.filter((ProjectType) => ProjectType !== label)
+      );
+  };
+
+  const handleSelectedActiveStages = (isCheck: boolean, label: string) => {
+    if (label === "Active" && isCheck)
+      setSelectedActiveStages([...labels.active]);
+    else if (label === "Active" && !isCheck) setSelectedActiveStages([]);
+    else if (isCheck && label !== "Active")
+      setSelectedActiveStages((prev) => [...prev, label]);
+    else
+      setSelectedActiveStages((prev) =>
+        prev.filter((stage) => stage !== label)
+      );
+  };
+
+  const handleSelectedInActiveStages = (isCheck: boolean, label: string) => {
+    if (label === "Inactive" && isCheck)
+      setSelectedInActiveStages([...labels.inActive]);
+    else if (label === "Inactive" && !isCheck) setSelectedInActiveStages([]);
+    else if (isCheck && label !== "Inactive")
+      setSelectedInActiveStages((prev) => [...prev, label]);
+    else
+      setSelectedInActiveStages((prev) =>
+        prev.filter((stage) => stage !== label)
+      );
   };
 
   return (
     <div className="App">
-      <FilterBar labels={labels} />
-      <Table projects={projects} />
+      <FilterBar
+        labels={labels}
+        selectedStates={selectedStates}
+        handleSelectedStates={handleSelectedStates}
+        selectedProjectTypes={selectedProjectTypes}
+        handleSelectedProjectTypes={handleSelectedProjectTypes}
+        selectedActiveStages={selectedActiveStages}
+        handleSelectedActiveStages={handleSelectedActiveStages}
+        selectedInActiveStages={selectedInActiveStages}
+        handleSelectedInActiveStages={handleSelectedInActiveStages}
+      />
+      <Table
+        projects={projects.filter(
+          (project) =>
+            selectedStates.includes(project.state) &&
+            selectedProjectTypes.includes(project.projectType) &&
+            [...selectedInActiveStages, ...selectedActiveStages].includes(
+              project.stage
+            )
+        )}
+      />
     </div>
   );
 }
