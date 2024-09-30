@@ -185,6 +185,8 @@ function App() {
   const [selectedInActiveStages, setSelectedInActiveStages] = useState<
     string[]
   >(labels.inActive);
+  const [minValue, setMinValue] = useState<number>(0);
+  const [maxValue, setMaxValue] = useState<number>(5000);
 
   const handleSelectedStates = (isCheck: boolean, label: string) => {
     if (label === "All" && isCheck) setSelectedStates([...labels.state]);
@@ -230,6 +232,16 @@ function App() {
       );
   };
 
+  const handleMinChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = Math.min(Number(e.target.value), maxValue);
+    setMinValue(value);
+  };
+
+  const handleMaxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = Math.max(Number(e.target.value), minValue);
+    setMaxValue(value);
+  };
+
   return (
     <div className="App">
       <FilterBar
@@ -242,6 +254,10 @@ function App() {
         handleSelectedActiveStages={handleSelectedActiveStages}
         selectedInActiveStages={selectedInActiveStages}
         handleSelectedInActiveStages={handleSelectedInActiveStages}
+        handleMinChange={handleMinChange}
+        minValue={minValue}
+        handleMaxChange={handleMaxChange}
+        maxValue={maxValue}
       />
       <Table
         projects={projects.filter(
@@ -250,7 +266,9 @@ function App() {
             selectedProjectTypes.includes(project.projectType) &&
             [...selectedInActiveStages, ...selectedActiveStages].includes(
               project.stage
-            )
+            ) &&
+            project.totalKwDC >= minValue &&
+            project.totalKwDC <= maxValue
         )}
       />
     </div>

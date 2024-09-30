@@ -21,6 +21,10 @@ export const FilterBar = (props: {
   handleSelectedActiveStages: (isCheck: boolean, label: string) => void;
   selectedInActiveStages: string[];
   handleSelectedInActiveStages: (isCheck: boolean, label: string) => void;
+  minValue: number;
+  handleMinChange: (e: any) => void;
+  maxValue: number;
+  handleMaxChange: (e: any) => void;
 }) => {
   const {
     labels,
@@ -32,6 +36,10 @@ export const FilterBar = (props: {
     handleSelectedActiveStages,
     selectedInActiveStages,
     handleSelectedInActiveStages,
+    minValue,
+    handleMinChange,
+    maxValue,
+    handleMaxChange,
   } = props;
 
   console.log(
@@ -87,7 +95,12 @@ export const FilterBar = (props: {
         handleSelectedOptions={handleSelectedProjectTypes}
         selectedOptions={selectedProjectTypes}
       />
-      {/* <RangeSlider /> */}
+      <RangeSlider
+        minValue={minValue}
+        handleMinChange={handleMinChange}
+        maxValue={maxValue}
+        handleMaxChange={handleMaxChange}
+      />
     </div>
   );
 };

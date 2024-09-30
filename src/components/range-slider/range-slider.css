@@ -1,0 +1,95 @@
+
+.container {
+    padding: 17px 15px;
+    padding-top: 24px;
+    width: 35%;
+}
+
+.slider-container {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.range-slider-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    position: relative;
+}
+
+
+input[type="range"] {
+    -webkit-appearance: none;
+    position:absolute;
+    width: 100%;
+    
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+    height: 6px; /* Height of the track */
+    border-radius: 16px;
+    background-color: rgba(204, 212, 215, 1);
+
+}
+
+/* input[type="range"]::-moz-range-track {
+    height: 15px;
+    background: transparent; /* Make it transparent 
+} */
+
+/* Customize the thumb */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 25px;
+    width: 25px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgba(204, 212, 215, 1); /* Color of the thumb */
+    cursor: pointer;
+    border-radius: 50%;
+    margin-top: -9.5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* input[type="range"]::-moz-range-thumb {
+    height: 15px;
+    width: 15px;
+    background: rgb(59, 1, 1);  
+    cursor: pointer;
+} */
+
+.display-range{
+    display: flex;
+    align-items: center;
+    gap:25px;
+
+}
+
+.display-range span {
+    color:rgba(52, 79, 95, 1)
+}
+
+.values-container {
+    width: 50%;
+    position: relative;
+}
+
+.values {
+    background-color: white;
+    border: 1px solid rgba(204, 212, 215, 1);
+    border-radius: 16px;
+    padding: 13px 11px;
+    padding-left:18px;
+    color:rgba(0, 42, 58, 1)
+}
+
+.value-title {
+    position: absolute;
+    top:-10px;
+    left: 16px;
+    background-color: white;
+    color: rgba(52, 79, 95, 1);
+    padding: 0 3px;
+    font-size: 13px;
+    font-family: "GothamMedium";
+}

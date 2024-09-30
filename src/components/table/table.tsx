@@ -14,7 +14,7 @@ const Table = (props: { projects: Project[] }) => {
         <tr className="table-header-row">
           <th>
             <div className="header-block">
-              <p>Product Name</p>
+              <p>Project Name</p>
               <DropdownSvg />
             </div>
           </th>

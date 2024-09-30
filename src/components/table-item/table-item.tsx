@@ -12,7 +12,7 @@ const TableItem = (props: { item: Project }) => {
         <Button value={item.stage} />
       </td>
       <td className="body-block">{item.state}</td>
-      <td className="body-block">{item.totalKwDC}</td>
+      <td className="body-block">{Number(item.totalKwDC).toFixed(2)}</td>
       <td className="body-block">{item.projectType}</td>
       <td className="body-block">{item.solutionType}</td>
       <td className="body-block">{item.offtakeType}</td>
