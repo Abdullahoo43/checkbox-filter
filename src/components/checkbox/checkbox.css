@@ -1,0 +1,15 @@
+.checkbox-container {
+    display: flex;
+    gap:10px;
+    padding: 8px 15px;
+    
+}
+
+.main-checkbox{
+    padding-left: 8px;
+}
+
+.sub-checkbox{
+    padding-left: 19px;
+}
+

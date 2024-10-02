@@ -1,0 +1,10 @@
+.filter-block{
+    display: flex;
+    flex-direction: column;
+    gap:3px;
+}
+
+
+.selected-options{
+    color:rgba(5, 165, 105, 1)
+}
