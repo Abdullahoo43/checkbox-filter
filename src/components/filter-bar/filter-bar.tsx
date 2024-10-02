@@ -25,6 +25,8 @@ export const FilterBar = (props: {
   handleMinChange: (e: any) => void;
   maxValue: number;
   handleMaxChange: (e: any) => void;
+  maxValFromProjects: number;
+  minValFromProjects: number;
 }) => {
   const {
     labels,
@@ -40,6 +42,8 @@ export const FilterBar = (props: {
     handleMinChange,
     maxValue,
     handleMaxChange,
+    maxValFromProjects,
+    minValFromProjects,
   } = props;
 
   console.log(
@@ -100,6 +104,8 @@ export const FilterBar = (props: {
         handleMinChange={handleMinChange}
         maxValue={maxValue}
         handleMaxChange={handleMaxChange}
+        maxValFromProjects={maxValFromProjects}
+        minValFromProjects={minValFromProjects}
       />
     </div>
   );

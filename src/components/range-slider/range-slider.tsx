@@ -7,8 +7,25 @@ const RangeSlider = (props: {
   handleMinChange: (e: any) => void;
   maxValue: number;
   handleMaxChange: (e: any) => void;
+  maxValFromProjects: number;
+  minValFromProjects: number;
 }) => {
-  const { minValue, handleMinChange, maxValue, handleMaxChange } = props;
+  const {
+    minValue,
+    handleMinChange,
+    maxValue,
+    handleMaxChange,
+    maxValFromProjects,
+    minValFromProjects,
+  } = props;
+
+  const [tempMinVal, setTempMinVal] = useState(minValue);
+  const [tempMaxVal, setTempMaxVal] = useState(maxValue);
+
+  useEffect(() => {
+    setTempMaxVal(maxValue);
+    setTempMinVal(minValue);
+  }, [maxValue, minValue]);
 
   const [isDropdownOpen, setIsDropDownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -34,6 +51,15 @@ const RangeSlider = (props: {
     };
   }, []);
 
+  const handleOnBlurMin = (e: any) => {
+    if (tempMinVal > tempMaxVal) setTempMinVal(tempMaxVal);
+    handleMinChange(e);
+  };
+  const handleOnBlurMax = (e: any) => {
+    if (tempMaxVal < tempMinVal) setTempMaxVal(tempMinVal);
+    handleMaxChange(e);
+  };
+
   return (
     <div className="filter-block" ref={dropdownRef}>
       <FilterBlockHead
@@ -46,38 +72,68 @@ const RangeSlider = (props: {
           <div className="slider-container">
             <div className="range-slider-container">
               <input
+                id="from-slider"
                 type="range"
-                min="0"
-                max="5000"
+                min={minValFromProjects}
+                max={maxValFromProjects}
                 value={minValue}
                 onChange={handleMinChange}
               />
               <input
+                id="to-slider"
                 type="range"
-                min="0"
-                max="5000"
+                min={minValFromProjects}
+                max={maxValFromProjects}
                 value={maxValue}
                 onChange={handleMaxChange}
               />
+              <div className="slider-track"></div>
               <div
                 style={{
                   height: "6px",
                   backgroundColor: "rgba(186, 215, 57, 1)",
-                  width: `${((maxValue - minValue) / 5000) * 100}%`,
                   position: "absolute",
-                  left: `${(minValue / 5000) * 100}%`,
+                  right: `${Math.max(
+                    ((maxValFromProjects - maxValue) /
+                      (maxValFromProjects - minValFromProjects)) *
+                      100,
+                    0
+                  )}%`,
+                  left: `${Math.max(
+                    ((minValue - minValFromProjects) /
+                      (maxValFromProjects - minValFromProjects)) *
+                      100,
+                    0
+                  )}%`,
                 }}
               ></div>
             </div>
             <div className="display-range">
               <div className="values-container">
                 <p className="value-title">Min</p>
-                <p className="values">{minValue}</p>
+                <input
+                  className="values"
+                  value={tempMinVal}
+                  type="text"
+                  onBlur={handleOnBlurMin}
+                  onChange={(e) => {
+                    setTempMinVal(Number(e.target.value));
+                  }}
+                  // onChange={handleMinChange}
+                />
               </div>
               <span> &#8212; </span>
               <div className="values-container">
                 <p className="value-title">Max</p>
-                <p className="values">{maxValue}</p>
+                <input
+                  className="values"
+                  value={tempMaxVal}
+                  type="text"
+                  onBlur={handleOnBlurMax}
+                  onChange={(e) => {
+                    setTempMaxVal(Number(e.target.value));
+                  }}
+                />
               </div>
             </div>
           </div>

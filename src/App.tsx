@@ -17,7 +17,7 @@ const projects: Project[] = [
   {
     projectName: "NOLA 1",
     stage: "In Construction",
-    state: "Delaware",
+    state: "Delawere",
     totalKwDC: 562,
     projectType: "BESS",
     solutionType: "BESS",
@@ -125,7 +125,7 @@ const projects: Project[] = [
   {
     projectName: "LL Allentown 1 PA (Ruppsville)",
     stage: "In Construction",
-    state: "Delaware",
+    state: "Delawere",
     totalKwDC: 678,
     projectType: "Ground",
     solutionType: "BESS",
@@ -175,6 +175,13 @@ function App() {
     projectType: ["BESS", "Carport", "Floating", "Ground", "Roof"],
   };
 
+  const maxValFromProjects = Math.max(
+    ...projects.map((proj) => proj.totalKwDC)
+  );
+  const minValFromProjects = Math.min(
+    ...projects.map((proj) => proj.totalKwDC)
+  );
+
   const [selectedStates, setSelectedStates] = useState<string[]>(labels.state);
   const [selectedProjectTypes, setSelectedProjectTypes] = useState<string[]>(
     labels.projectType
@@ -185,8 +192,8 @@ function App() {
   const [selectedInActiveStages, setSelectedInActiveStages] = useState<
     string[]
   >(labels.inActive);
-  const [minValue, setMinValue] = useState<number>(0);
-  const [maxValue, setMaxValue] = useState<number>(5000);
+  const [minValue, setMinValue] = useState<number>(minValFromProjects);
+  const [maxValue, setMaxValue] = useState<number>(maxValFromProjects);
 
   const handleSelectedStates = (isCheck: boolean, label: string) => {
     if (label === "All" && isCheck) setSelectedStates([...labels.state]);
@@ -241,7 +248,7 @@ function App() {
     const value = Math.max(Number(e.target.value), minValue);
     setMaxValue(value);
   };
-
+  console.log("blunder", projects.length);
   return (
     <div className="App">
       <FilterBar
@@ -258,6 +265,8 @@ function App() {
         minValue={minValue}
         handleMaxChange={handleMaxChange}
         maxValue={maxValue}
+        maxValFromProjects={maxValFromProjects}
+        minValFromProjects={minValFromProjects}
       />
       <Table
         projects={projects.filter(
